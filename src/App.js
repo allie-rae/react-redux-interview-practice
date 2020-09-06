@@ -23,7 +23,9 @@ const mapStateToProps = state => {
     genericPokeList: state.genericPokeList,
     userPokeList: state.userPokeList,
     isFetching: state.isFetching,
-    error: state.error
+    error: state.error,
+    next: state.next,
+    previous: state.previous
   }
 }
 

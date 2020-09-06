@@ -29,7 +29,7 @@ export const getPokeList = () => dispatch => {
     axios.get('https://pokeapi.co/api/v2/pokemon/')
         .then(res => {
             console.log(res)
-            dispatch({ type: LOAD_POKEMON_SUCCESS, payload: res.data.results })
+            dispatch({ type: LOAD_POKEMON_SUCCESS, payload: res.data })
         })
         .catch(err => {
             console.log(err)

@@ -4,7 +4,9 @@ let initialState = {
     genericPokeList: [],
     userPokeList: [],
     isFetching: false,
-    error: ''
+    error: '',
+    next: '',
+    previous: ''
 }
 
 export const rootReducer = (state = initialState, action) => {
@@ -34,7 +36,9 @@ export const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                genericPokeList: action.payload
+                genericPokeList: action.payload.results,
+                next: action.payload.next,
+                previous: action.payload.previous
             }
             default:
                 return state;
