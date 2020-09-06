@@ -1,8 +1,10 @@
-import { ADD_POKEMON, REMOVE_POKEMON, LOAD_POKEMON } from '../actions';
+import { ADD_POKEMON, REMOVE_POKEMON, LOADING_POKEMON, LOAD_POKEMON_FAILURE, LOAD_POKEMON_SUCCESS } from '../actions';
 
 let initialState = {
     genericPokeList: [],
-    userPokeList: []
+    userPokeList: [],
+    isFetching: false,
+    error: ''
 }
 
 export const rootReducer = (state = initialState, action) => {
@@ -17,9 +19,21 @@ export const rootReducer = (state = initialState, action) => {
                 ...state,
                 userPokeList: state.userPokeList.filter(item => item.id !== action.payload.id)
             }
-        case LOAD_POKEMON:
+        case LOADING_POKEMON:
             return {
                 ...state,
+                isFetching: true
+            }
+        case LOAD_POKEMON_FAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                error: action.payload
+            }
+        case LOAD_POKEMON_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
                 genericPokeList: action.payload
             }
             default:
