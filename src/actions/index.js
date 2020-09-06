@@ -1,28 +1,21 @@
-import { ADD_POKEMON, REMOVE_POKEMON, LOAD_POKEMON } from '../actions';
+// Action types
+export const ADD_POKEMON = 'ADD_POKEMON';
+export const REMOVE_POKEMON = 'REMOVE_POKEMON';
+export const LOAD_POKEMON = 'LOAD_POKEMON';
 
-let initialState = {
-    genericPokeList: [],
-    userPokeList: []
+// Action creators
+export const addPokemon = pokemon => {
+    return { // Action
+        type: ADD_POKEMON,
+        payload: pokemon
+    }
 }
 
-export const rootReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case ADD_POKEMON:
-            return {
-                ...state,
-                userPokeList: [...state.userPokeList, action.payload]
-            }
-        case REMOVE_POKEMON:
-            return {
-                ...state,
-                userPokeList: state.userPokeList.filter(item => item.id !== action.payload.id)
-            }
-        case LOAD_POKEMON:
-            return {
-                ...state,
-                genericPokeList: action.payload
-            }
-            default:
-                return state;
-        }
+export const removePokemon = pokemon => {
+    return {
+        type: REMOVE_POKEMON,
+        payload: pokemon
+    }
 }
+
+
