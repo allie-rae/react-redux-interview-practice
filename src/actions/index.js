@@ -22,12 +22,14 @@ export const removePokemon = pokemon => {
     }
 }
 
+// Async request
+
 export const getPokeList = () => dispatch => {
     dispatch({ type: LOADING_POKEMON })
-    axios.get('')
+    axios.get('https://pokeapi.co/api/v2/pokemon/')
         .then(res => {
             console.log(res)
-            dispatch({ LOAD_POKEMON_SUCCESS, type: res.data })
+            dispatch({ type: LOAD_POKEMON_SUCCESS, payload: res.data.results })
         })
         .catch(err => {
             console.log(err)
