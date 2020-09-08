@@ -6,6 +6,9 @@ export const REMOVE_POKEMON = 'REMOVE_POKEMON';
 export const LOADING_POKEMON = 'LOADING_POKEMON';
 export const LOAD_POKEMON_FAILURE = 'LOAD_POKEMON_FAILURE';
 export const LOAD_POKEMON_SUCCESS = 'LOAD_POKEMON_SUCCESS';
+export const LOADING_POKEMON_IMAGE = 'LOADING_POKEMON_IMAGE';
+export const LOAD_POKEMON_IMAGE_FAILURE = 'LOAD_POKEMON_IMAGE_FAILURE';
+export const LOAD_POKEMON_IMAGE_SUCCESS = 'LOAD_POKEMON_IMAGE_SUCCESS';
 
 // Action creators
 export const addPokemon = pokemon => {
@@ -26,13 +29,19 @@ export const removePokemon = pokemon => {
 
 export const getPokeList = () => dispatch => {
     dispatch({ type: LOADING_POKEMON })
-    axios.get('https://pokeapi.co/api/v2/pokemon/')
+    axios.get('https://pokeapi.co/api/v2/pokemon-form/?limit=151')
         .then(res => {
-            console.log(res)
-            dispatch({ type: LOAD_POKEMON_SUCCESS, payload: res.data })
+            res.data.results.forEach(pokemon => {
+                axios.get(pokemon.url)
+                    .then(res => {
+                        dispatch({ type: LOAD_POKEMON_SUCCESS, payload: {name: pokemon.name, img: res.data.sprites.front_default} })
+                    })
+                    .catch(err => {
+                        dispatch({ type: LOAD_POKEMON_FAILURE, payload: err })
+                    })
+            })
         })
         .catch(err => {
-            console.log(err)
             dispatch({ type: LOAD_POKEMON_FAILURE, payload: err })
         })
 }

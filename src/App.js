@@ -14,6 +14,10 @@ function App(props) {
 
   return (
     <div className="App">
+      { props.isFetching 
+        ? <p>Loading...</p>
+        : props.genericPokeList.map(pokemon => <div key={pokemon.name} className="poke-card"><img src={pokemon.img} />{pokemon.name}</div>)
+      }
     </div>
   );
 }

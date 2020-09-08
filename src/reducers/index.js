@@ -1,4 +1,4 @@
-import { ADD_POKEMON, REMOVE_POKEMON, LOADING_POKEMON, LOAD_POKEMON_FAILURE, LOAD_POKEMON_SUCCESS } from '../actions';
+import { ADD_POKEMON, REMOVE_POKEMON, LOADING_POKEMON, LOAD_POKEMON_FAILURE, LOAD_POKEMON_SUCCESS, LOADING_POKEMON_IMAGE, LOAD_POKEMON_IMAGE_FAILURE, LOAD_POKEMON_IMAGE_SUCCESS } from '../actions';
 
 let initialState = {
     genericPokeList: [],
@@ -36,7 +36,7 @@ export const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                genericPokeList: action.payload.results,
+                genericPokeList: [...state.genericPokeList, action.payload],
                 next: action.payload.next,
                 previous: action.payload.previous
             }
