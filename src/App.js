@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
-import { getPokeList } from './actions';
+import { getPokeList, addPokemon, removePokemon } from './actions';
 
 
 function App(props) {
@@ -14,23 +14,25 @@ function App(props) {
 
   return (
     <div className="App">
-      { props.isFetching 
-        ? <p>Loading...</p>
-        : props.genericPokeList.map(pokemon => <div key={pokemon.name} className="poke-card"><img src={pokemon.img} />{pokemon.name}</div>)
-      }
+      <p>Choose your six:</p>
+      <div className="poke-container">
+        { props.userPokeList.length === 0
+          ? <p>No Pokemon are in your party!</p>
+          : props.userPokeList.map(pokemon => <div key={pokemon.name} className="poke-card" onClick={() => props.removePokemon(pokemon)}><img src={pokemon.img} />{pokemon.name}</div>)
+        }
+      </div>
+      <div className="poke-container">
+        { props.isFetching 
+          ? <p>Loading...</p>
+          : props.genericPokeList.map(pokemon => <div key={pokemon.name} className="poke-card" onClick={() => props.addPokemon(pokemon)}><img src={pokemon.img} />{pokemon.name}</div>)
+        }
+      </div>
     </div>
   );
 }
 
 const mapStateToProps = state => {
-  return {
-    genericPokeList: state.genericPokeList,
-    userPokeList: state.userPokeList,
-    isFetching: state.isFetching,
-    error: state.error,
-    next: state.next,
-    previous: state.previous
-  }
+  return state
 }
 
-export default connect(mapStateToProps, { getPokeList })(App);
+export default connect(mapStateToProps, { getPokeList, addPokemon, removePokemon })(App);

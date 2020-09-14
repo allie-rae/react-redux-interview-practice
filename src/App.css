@@ -1,4 +1,8 @@
 .App {
+  text-align: center;
+}
+
+.poke-container {
   display: flex;
   justify-items: center;
   flex-wrap: wrap;

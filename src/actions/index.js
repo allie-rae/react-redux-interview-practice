@@ -6,9 +6,6 @@ export const REMOVE_POKEMON = 'REMOVE_POKEMON';
 export const LOADING_POKEMON = 'LOADING_POKEMON';
 export const LOAD_POKEMON_FAILURE = 'LOAD_POKEMON_FAILURE';
 export const LOAD_POKEMON_SUCCESS = 'LOAD_POKEMON_SUCCESS';
-export const LOADING_POKEMON_IMAGE = 'LOADING_POKEMON_IMAGE';
-export const LOAD_POKEMON_IMAGE_FAILURE = 'LOAD_POKEMON_IMAGE_FAILURE';
-export const LOAD_POKEMON_IMAGE_SUCCESS = 'LOAD_POKEMON_IMAGE_SUCCESS';
 
 // Action creators
 export const addPokemon = pokemon => {
@@ -26,7 +23,6 @@ export const removePokemon = pokemon => {
 }
 
 // Async request
-
 export const getPokeList = () => dispatch => {
     dispatch({ type: LOADING_POKEMON })
     axios.get('https://pokeapi.co/api/v2/pokemon-form/?limit=151')

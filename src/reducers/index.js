@@ -1,4 +1,10 @@
-import { ADD_POKEMON, REMOVE_POKEMON, LOADING_POKEMON, LOAD_POKEMON_FAILURE, LOAD_POKEMON_SUCCESS, LOADING_POKEMON_IMAGE, LOAD_POKEMON_IMAGE_FAILURE, LOAD_POKEMON_IMAGE_SUCCESS } from '../actions';
+import { 
+    ADD_POKEMON, 
+    REMOVE_POKEMON, 
+    LOADING_POKEMON, 
+    LOAD_POKEMON_FAILURE, 
+    LOAD_POKEMON_SUCCESS
+} from '../actions';
 
 let initialState = {
     genericPokeList: [],
@@ -14,12 +20,14 @@ export const rootReducer = (state = initialState, action) => {
         case ADD_POKEMON:
             return {
                 ...state,
-                userPokeList: [...state.userPokeList, action.payload]
+                userPokeList: [...state.userPokeList, action.payload],
+                genericPokeList: state.genericPokeList.filter(pokemon => pokemon.name !== action.payload.name)
             }
         case REMOVE_POKEMON:
             return {
                 ...state,
-                userPokeList: state.userPokeList.filter(item => item.id !== action.payload.id)
+                userPokeList: state.userPokeList.filter(pokemon => pokemon.name !== action.payload.name),
+                genericPokeList: [...state.genericPokeList, action.payload]
             }
         case LOADING_POKEMON:
             return {
